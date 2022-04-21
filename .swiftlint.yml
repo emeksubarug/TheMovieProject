@@ -1,0 +1,5 @@
+# rule identifiers turned on by default to exclude from running
+
+excluded:
+  - Pods
+

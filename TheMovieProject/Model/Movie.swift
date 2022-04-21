@@ -8,18 +8,35 @@
 import Foundation
 
 struct Movie: Codable {
-    var vote_count: Int?
+    var voteCount: Int?
     var id: Int?
     var video: Bool?
     var title: String?
     var popularity: Double?
-    var original_language: String?
-    var original_title: String?
-    var genre_ids: [Int]?
-    var backdrop_path: String?
+    var originalLanguage: String?
+    var originalTitle: String?
+    var genreIds: [Int]?
+    var backdropPath: String?
     var adult: Bool?
     var overview: String?
-    var release_date: String?
-    var vote_average: Double?
-    var poster_path: String?
+    var releaseDate: String?
+    var voteAverage: Double?
+    var posterPath: String?
+
+    enum CodingKeys: String, CodingKey {
+        case voteCount = "vote_count"
+        case id = "id"
+        case video = "video"
+        case title = "title"
+        case popularity = "popularity"
+        case originalLanguage = "original_language"
+        case originalTitle = "original_title"
+        case genreIds = "genre_ids"
+        case backdropPath = "backdrop_path"
+        case adult = "adult"
+        case overview = "overview"
+        case releaseDate = "release_date"
+        case voteAverage = "vote_average"
+        case posterPath = "poster_path"
+    }
 }

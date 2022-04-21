@@ -1,4 +1,3 @@
-
 //
 //  SeeMoviesViewController.swift
 //  TheMovieProject
@@ -10,118 +9,140 @@ import UIKit
 import Alamofire
 import AlamofireImage
 import SDWebImage
+import Cosmos
 
+class SeeMoviesViewController: UIViewController, UIScrollViewDelegate, UICollectionViewDelegate {
 
-class SeeMoviesViewController: UIViewController {
-    var isLoadingMore : Bool = false
-    var page: Int = 1
-    var delegate: DataSourceDelegate?
-    let dataSource = DataSource()
+    private var isLoadingMore: Bool = false
+    private var page: Int = 1
+//    private var delegate: DataSourceDelegate?
+    var dataSource: DataSource?
     var type: String = ""
-    var movies: [Movie] = []
-    
-    @IBOutlet weak var MoviesCollection: UICollectionView!
-    
+
+    private let ratingCosmos = CosmosView()
+
+    @IBOutlet weak private var allMoviesCollection: UICollectionView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerNibCell()
         page = 1
-        dataSource.delegate = self
-        MoviesCollection.dataSource = self
-        if  type == "MostPopular" {
-            dataSource.loadPopularMovies(page: page)
+        dataSource?.delegate = self
+        allMoviesCollection.dataSource = self
+        allMoviesCollection.delegate = self
+
+        self.title = "\(type) Movies"
+        if  type == "Most Popular" {
+            dataSource?.loadPopularMovies(page: page)
         } else if  type == "Upcoming" {
-            dataSource.loadUpcomingMovies(page: page)
+            dataSource?.loadUpcomingMovies(page: page)
         } else {
-            dataSource.loadNow_PlayingMovies(page: page)
+            dataSource?.loadNowPlayingMovies(page: page)
         }
     }
+
     
+    func registerNibCell() {
+        let  moviesAllCellNib: UINib =  UINib(nibName: "MoviesAllCell", bundle: nil)
+        allMoviesCollection.register(moviesAllCellNib, forCellWithReuseIdentifier: "SeeAll")
+    }
+
 }
 
 extension SeeMoviesViewController: UICollectionViewDataSource {
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if type == "MostPopular"{
-            return dataSource.getNumberOfPopularMovies()
-        }else if type == "Upcoming"{
-            return dataSource.getNumberOfUpcomingMovies()
-        }else {
-            return dataSource.getNumberOfNowPlayingMovies()
-            
-        }
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeeAll", for: indexPath) as! SeeAllMoviesCollectionViewCell
-        var movie: Movie?
-        
-        if  type == "MostPopular"{
-            movie = dataSource.getPopularMovieForIndex(index: indexPath.row)
+        if type == "Most Popular"{
+            return dataSource?.getNumberOfPopularMovies() ??  0
         } else if type == "Upcoming"{
-            movie = dataSource.getUpcomingMovieForIndex(index: indexPath.row)
-        }else {
-            movie = dataSource.getNowPlayingMovieForIndex(index: indexPath.row)
+            return dataSource?.getNumberOfUpcomingMovies() ?? 0
+        } else {
+            return dataSource?.getNumberOfNowPlayingMovies() ?? 0
         }
-        
-        cell.MovieLabel.text = movie?.original_title
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)
+    -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeeAll", for: indexPath)
+                as? SeeAllMoviesCollectionViewCell else {
+                    fatalError("cell could not initiated")
+                }
+        var movie: Movie?
+        if  type == "Most Popular"{
+            movie = dataSource?.getPopularMovieForIndex(index: indexPath.row)
+        } else if type == "Upcoming"{
+            movie = dataSource?.getUpcomingMovieForIndex(index: indexPath.row)
+        } else {
+            movie = dataSource?.getNowPlayingMovieForIndex(index: indexPath.row)
+        }
+        let margins = UIEdgeInsets(top: 3, left: 8, bottom: 3, right: 8)
+        cell.frame = cell.frame.inset(by: margins)
+        cell.movieLabel.text = movie?.originalTitle
         var urlImage = ""
         do {
-            urlImage = try APIRouter.loadImage(movie_poster_url: "\(movie?.poster_path ?? "")").asURLRequest().url?.absoluteString ?? ""
-        }catch{
+            urlImage = try APIRouter.loadImage(moviePosterUrl: "\(movie?.posterPath ?? "")")
+                .asURLRequest().url?.absoluteString ?? ""
+        } catch {
             debugPrint(error)
         }
-        cell.MoviePoster.sd_setImage(with: URL(string:urlImage ), placeholderImage: UIImage(named: "placeholder.png"))
+        cell.moviePosterImageView.sd_setImage(with: URL(string: urlImage ),
+                                              placeholderImage: UIImage(named: "placeholder.png"))
+        cell.ratingView.rating = RatingUtilites.map(minRange: 0, maxRange: 10, minDomain: 0,
+                                                    maxDomain: 5, value: movie?.voteAverage ?? 60.0)
         return cell
     }
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if (scrollView.contentOffset.y + 1) >= (scrollView.contentSize.height - scrollView.frame.size.height) {
+        if self.allMoviesCollection.contentOffset.y >=
+            (self.allMoviesCollection.contentSize.height - self.allMoviesCollection.bounds.size.height) {
             if !isLoadingMore {
                 isLoadingMore = true
-                page = page + 1
-                
-                if  type == "MostPopular"{
-                    dataSource.loadPopularMovies(page: page)
+                page += 1
+                if  type == "Most Popular"{
+                    dataSource?.loadPopularMovies(page: page)
                 } else if type == "Upcoming"{
-                    dataSource.loadUpcomingMovies(page: page)
+                    dataSource?.loadUpcomingMovies(page: page)
                 } else {
-                    dataSource.loadNow_PlayingMovies(page: page)
+                    dataSource?.loadNowPlayingMovies(page: page)
                 }
-                
-                self.MoviesCollection.reloadData()
+                self.allMoviesCollection.reloadData()
                 self.isLoadingMore = false
-                    
-                }
-                
             }
         }
-    
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyboard: UIStoryboard? = UIStoryboard(name: "MovieDetailView", bundle: nil)
+        guard let movieDetailsViewController: MovieDetailsViewController =
+        storyboard?.instantiateViewController(withIdentifier: "MovieDetailsViewController")
+                as? MovieDetailsViewController else {
+                    fatalError()
+                }
+        movieDetailsViewController.selectedMovieId = dataSource?.getPopularMovieForIndex(index: indexPath.row).id
+        navigationController?.pushViewController(movieDetailsViewController, animated: true)
+    }
 }
 
 extension SeeMoviesViewController: DataSourceDelegate {
-    func MostPopularLoaded() {
-        if type == "MostPopular"{
-            MoviesCollection.reloadData()
+    func mostPopularLoaded() {
+        if type == "Most Popular"{
+            allMoviesCollection.reloadData()
         }
     }
-    
-    func UpcomingLoaded() {
+
+    func upcomingLoaded() {
         if type == "Upcoming"{
-            MoviesCollection.reloadData()
+            allMoviesCollection.reloadData()
         }
     }
-    
-    func NowPlayingLoaded() {
+
+    func nowPlayingLoaded() {
         if type == "NowPlaying"{
-            MoviesCollection.reloadData()
+            allMoviesCollection.reloadData()
         }
     }
-    
-    
-    
+
 }

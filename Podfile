@@ -9,5 +9,7 @@ target 'TheMovieProject' do
   pod 'Alamofire', '5.5'
   pod 'AlamofireImage', '4.1'
   pod 'SDWebImage', '5.0'
+  pod 'Cosmos'
+  pod 'SwiftLint'
 
 end

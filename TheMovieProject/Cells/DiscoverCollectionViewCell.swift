@@ -1,17 +1,16 @@
 //
-//  NowPlayingCollectionViewCell.swift
+//  UpcomingCollectionViewCell.swift
 //  TheMovieProject
 //
 //  Created by gizem.kaya on 23.01.2022.
 //
 
-/*
 import UIKit
 
-class NowPlayingCollectionViewCell: UICollectionViewCell {
+class DiscoverCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var movieDuration: UILabel!
-    @IBOutlet weak var movieLabel: UILabel!
     @IBOutlet weak var moviePosterImageView: UIImageView!
+    @IBOutlet weak var movieLabel: UILabel!
+
 }
-*/

@@ -7,10 +7,5 @@
 
 import Foundation
 
-
-
 protocol ViewAllDelegate {
-    
-   
 }
-

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PopularMoviesCell" id="bro-tO-Com" customClass="MostPopulerCollectionViewCell" customModule="TheMovieProject" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="138" height="227"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="joq-T1-kKH">
+                <rect key="frame" x="0.0" y="0.0" width="138" height="227"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kDn-VX-dyk">
+                        <rect key="frame" x="0.0" y="0.0" width="138" height="187"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="187" id="GqX-TU-iWD"/>
+                            <constraint firstAttribute="width" constant="138" id="aOB-Jr-B0T"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CaJ-JW-sW4">
+                        <rect key="frame" x="0.0" y="195" width="138" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="138" id="rTO-fz-V9E"/>
+                            <constraint firstAttribute="height" constant="15" id="ziJ-kA-cf2"/>
+                        </constraints>
+                        <attributedString key="attributedText">
+                            <fragment content="Title">
+                                <attributes>
+                                    <font key="NSFont" size="12" name="AppleGothic"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BkH-gZ-dNu">
+                        <rect key="frame" x="0.0" y="211" width="138" height="12.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12.5" id="6rQ-Q4-Qkq"/>
+                            <constraint firstAttribute="width" constant="138" id="uGl-4t-IJv"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AppleGothic" family="AppleGothic" pointSize="10"/>
+                        <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="BkH-gZ-dNu" secondAttribute="bottom" constant="3" id="3te-G1-k3F"/>
+                    <constraint firstItem="CaJ-JW-sW4" firstAttribute="leading" secondItem="joq-T1-kKH" secondAttribute="leading" id="CCo-ad-3ct"/>
+                    <constraint firstAttribute="trailing" secondItem="CaJ-JW-sW4" secondAttribute="trailing" id="X2g-7w-gSy"/>
+                    <constraint firstAttribute="trailing" secondItem="kDn-VX-dyk" secondAttribute="trailing" id="ZdK-Zr-MiJ"/>
+                    <constraint firstItem="kDn-VX-dyk" firstAttribute="leading" secondItem="joq-T1-kKH" secondAttribute="leading" id="cOQ-wF-z1u"/>
+                    <constraint firstItem="BkH-gZ-dNu" firstAttribute="top" secondItem="CaJ-JW-sW4" secondAttribute="bottom" constant="1" id="iZD-Zy-kZo"/>
+                    <constraint firstItem="CaJ-JW-sW4" firstAttribute="top" secondItem="kDn-VX-dyk" secondAttribute="bottom" constant="8" symbolic="YES" id="nFj-Dj-szL"/>
+                    <constraint firstItem="BkH-gZ-dNu" firstAttribute="leading" secondItem="joq-T1-kKH" secondAttribute="leading" id="nLg-2l-G8p"/>
+                    <constraint firstItem="kDn-VX-dyk" firstAttribute="top" secondItem="joq-T1-kKH" secondAttribute="top" id="oIY-4Q-rTI"/>
+                    <constraint firstAttribute="trailing" secondItem="BkH-gZ-dNu" secondAttribute="trailing" id="zoY-n1-WYa"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="166" height="191"/>
+            <connections>
+                <outlet property="movieDuration" destination="BkH-gZ-dNu" id="xQx-1S-xMy"/>
+                <outlet property="movieLabel" destination="CaJ-JW-sW4" id="HAP-1h-5rw"/>
+                <outlet property="moviePosterImageView" destination="kDn-VX-dyk" id="Y8D-Tr-DMF"/>
+            </connections>
+            <point key="canvasLocation" x="400.00000000000006" y="27.790178571428569"/>
+        </collectionViewCell>
+    </objects>
+</document>
