@@ -2,26 +2,38 @@ PODS:
   - Alamofire (5.5.0)
   - AlamofireImage (4.1.0):
     - Alamofire (~> 5.1)
+  - Cosmos (23.0.0)
   - SDWebImage (5.0.0):
     - SDWebImage/Core (= 5.0.0)
   - SDWebImage/Core (5.0.0)
+  - SwiftLint (0.47.0)
+  - TRMosaicLayout (1.0.0)
 
 DEPENDENCIES:
   - Alamofire (= 5.5)
   - AlamofireImage (= 4.1)
+  - Cosmos
   - SDWebImage (= 5.0)
+  - SwiftLint
+  - TRMosaicLayout
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - AlamofireImage
+    - Cosmos
     - SDWebImage
+    - SwiftLint
+    - TRMosaicLayout
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   AlamofireImage: c4a2ba349885fb3064feb74d2e547bd42ce9be10
+  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   SDWebImage: 5de80a0302de9e377e62f47d2fa1304efff0e55f
+  SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
+  TRMosaicLayout: 1875505c48dd2877afd69a8bea7b4c1c63afa5b5
 
-PODFILE CHECKSUM: b50118b1421387bb3aece35ba68905d381b1e93a
+PODFILE CHECKSUM: 44254e3cb25c3b6852f1081dbd644608dc216fd4
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

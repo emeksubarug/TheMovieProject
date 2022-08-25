@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--SeeMoviesViewController-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="SeeMoviesViewController" title="SeeMoviesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="SeeMoviesViewController" customModule="TheMovieProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vro-qY-pxW">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Y4m-3B-ZqE">
+                                    <size key="itemSize" width="355" height="163"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="SearchBar" id="7mg-OU-h55" customClass="SearchBar" customModule="TheMovieProject" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <searchBar contentMode="redraw" placeholder="Search Movies" showsCancelButton="YES" translucent="NO" showsScopeBar="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q6P-qK-jZH">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <color key="barTintColor" systemColor="systemBackgroundColor"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <scopeButtonTitles>
+                                                <string>Title</string>
+                                                <string>Title</string>
+                                            </scopeButtonTitles>
+                                            <connections>
+                                                <outlet property="delegate" destination="Y6W-OH-hqX" id="0g4-RO-xYv"/>
+                                            </connections>
+                                        </searchBar>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Q6P-qK-jZH" firstAttribute="top" secondItem="7mg-OU-h55" secondAttribute="top" id="2d6-Ev-G4T"/>
+                                        <constraint firstItem="Q6P-qK-jZH" firstAttribute="leading" secondItem="7mg-OU-h55" secondAttribute="leading" id="IG8-k2-OPQ"/>
+                                        <constraint firstAttribute="bottom" secondItem="Q6P-qK-jZH" secondAttribute="bottom" id="QX9-qX-UXk"/>
+                                        <constraint firstAttribute="trailing" secondItem="Q6P-qK-jZH" secondAttribute="trailing" id="csk-qL-iQn"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="searchBar" destination="Q6P-qK-jZH" id="4eo-dz-dV1"/>
+                                    </connections>
+                                </collectionReusableView>
+                            </collectionView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cYu-ra-Ykg">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="barTintColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="14"/>
+                                    <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textShadowColor" red="0.14901960780000001" green="0.68044018750000002" blue="0.68044018750000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem id="Oc6-dP-JCY"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="vro-qY-pxW" secondAttribute="trailing" id="5tS-Ld-Nmq"/>
+                            <constraint firstItem="vro-qY-pxW" firstAttribute="top" secondItem="cYu-ra-Ykg" secondAttribute="bottom" id="IE8-yR-FNu"/>
+                            <constraint firstItem="vro-qY-pxW" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="QNX-Ls-R9h"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="vro-qY-pxW" secondAttribute="bottom" id="WXr-9K-1VW"/>
+                            <constraint firstItem="vro-qY-pxW" firstAttribute="trailing" secondItem="cYu-ra-Ykg" secondAttribute="trailing" id="Zm8-rU-H2C"/>
+                            <constraint firstItem="vro-qY-pxW" firstAttribute="leading" secondItem="cYu-ra-Ykg" secondAttribute="leading" id="mG1-HZ-s7p"/>
+                            <constraint firstItem="vro-qY-pxW" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="r1z-Ih-ohI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="allMoviesCollection" destination="vro-qY-pxW" id="At1-lX-GLG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-246.37681159420291" y="170.75892857142856"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" red="0.14901960780000001" green="0.68044018750000002" blue="0.68044018750000002" alpha="1" colorSpace="calibratedRGB"/>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

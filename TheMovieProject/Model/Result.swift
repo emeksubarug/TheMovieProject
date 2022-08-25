@@ -7,19 +7,16 @@
 
 import Foundation
 
-
 struct Results: Codable {
     var page: Int
-    var total_results: Int
-    var total_pages: Int
+    var totalResults: Int
+    var totalPages: Int
     var results: [Movie]?
-    
-     enum CodingKeys: String,CodingKey {
-        case page =  "page"
-        case total_results = "total_results"
-        case total_pages = "total_pages"
+
+     enum CodingKeys: String, CodingKey {
+        case page = "page"
+        case totalResults = "total_results"
+        case totalPages = "total_pages"
         case results = "results"
     }
 }
-
-

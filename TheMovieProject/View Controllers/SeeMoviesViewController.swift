@@ -1,4 +1,3 @@
-
 //
 //  SeeMoviesViewController.swift
 //  TheMovieProject
@@ -10,120 +9,134 @@ import UIKit
 import Alamofire
 import AlamofireImage
 import SDWebImage
+import Cosmos
 
+class SeeMoviesViewController: UIViewController, UIScrollViewDelegate, UICollectionViewDelegate {
 
-class SeeMoviesViewController: UIViewController {
-    var isLoadingMore : Bool = false
-    var page: Int = 1
-    var delegate: DataSourceDelegate?
-    let dataSource = DataSource()
-    var type: String = ""
-    var movies: [Movie] = []
-    
-    @IBOutlet weak var MoviesCollection: UICollectionView!
+    private var isLoadingMore: Bool = false
+    private var page: Int = 1
+    var type: MovieListType = .nowPlaying
+    private let viewModel: SeeMoviesViewModel = SeeMoviesViewModel()
+    private let ratingCosmos = CosmosView()
+    @IBOutlet weak private var allMoviesCollection: UICollectionView!
+    private var category: String {
+        return self.type.category
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = type.description
+        registerNibCell()
+        loadMoviesForCategory()
         page = 1
-        dataSource.delegate = self
-        MoviesCollection.dataSource = self
-        
-        
-        if  type == "MostPopular" {
-            dataSource.loadPopularMovies(page: page)
-        } else if  type == "Upcoming" {
-            dataSource.loadUpcomingMovies(page: page)
-        } else {
-            dataSource.loadNow_PlayingMovies(page: page)
+        allMoviesCollection.dataSource = self
+        allMoviesCollection.delegate = self
+        self.viewModel.delegate = self
+    }
+
+    func registerNibCell() {
+        let  moviesAllCellNib: UINib =  UINib(nibName: "MoviesAllCell", bundle: nil)
+        allMoviesCollection.register(moviesAllCellNib, forCellWithReuseIdentifier: "SeeAll")
+    }
+
+    func loadMoviesForCategory() {
+        switch type {
+        case .nowPlaying:
+            viewModel.loadNowPlayingMovies(page: page)
+        case .upcoming:
+            viewModel.loadUpcomingMovies(page: page)
+        case .popular:
+            viewModel.loadPopularMovies(page: page)
         }
     }
     
+
 }
 
 extension SeeMoviesViewController: UICollectionViewDataSource {
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if type == "MostPopular"{
-            return dataSource.getNumberOfPopularMovies()
-        }else if type == "Upcoming"{
-            return dataSource.getNumberOfUpcomingMovies()
-        }else {
-            return dataSource.getNumberOfNowPlayingMovies()
-            
+            switch type {
+            case .nowPlaying:
+                return viewModel.getNumberOfNowPlayingMovies()
+            case .upcoming:
+                return viewModel.getNumberOfUpcomingMovies()
+            case .popular:
+                return viewModel.getNumberOfPopularMovies()
         }
-        
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeeAll", for: indexPath) as! SeeAllMoviesCollectionViewCell
-        var movie: Movie?
-        
-        if  type == "MostPopular"{
-            movie = dataSource.getPopularMovieForIndex(index: indexPath.row)
-        } else if type == "Upcoming"{
-            movie = dataSource.getUpcomingMovieForIndex(index: indexPath.row)
-        }else {
-            movie = dataSource.getNowPlayingMovieForIndex(index: indexPath.row)
-        }
-        
-        cell.MovieLabel.text = movie?.original_title
-        var urlImage = ""
-        do {
-            urlImage = try APIRouter.loadImage(movie_poster_url: "\(movie?.poster_path ?? "")").asURLRequest().url?.absoluteString ?? ""
-        }catch{
-            debugPrint(error)
-        }
-        cell.MoviePoster.sd_setImage(with: URL(string:urlImage ), placeholderImage: UIImage(named: "placeholder.png"))
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)
+    -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeeAll", for: indexPath)
+                as? SeeAllMoviesCollectionViewCell else {
+                    fatalError("cell could not initiated")
+                }
+
+            switch type {
+            case .nowPlaying:
+                cell.configure(info: viewModel.getInfoNowPlayingMovie(for: indexPath))
+            case .upcoming:
+                cell.configure(info: viewModel.getInfoUpcomingMovie(for: indexPath))
+            case .popular:
+                cell.configure(info: viewModel.getInfoPopularMovie(for: indexPath))
+            }
+        let margins = UIEdgeInsets(top: 3, left: 8, bottom: 3, right: 8)
+        cell.frame = cell.frame.inset(by: margins)
+
         return cell
     }
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if (scrollView.contentOffset.y + 1) >= (scrollView.contentSize.height - scrollView.frame.size.height) {
+        if self.allMoviesCollection.contentOffset.y >=
+            (self.allMoviesCollection.contentSize.height - self.allMoviesCollection.bounds.size.height) {
             if !isLoadingMore {
                 isLoadingMore = true
-                page = page + 1
-                
-                if  type == "MostPopular"{
-                    dataSource.loadPopularMovies(page: page)
-                } else if type == "Upcoming"{
-                    dataSource.loadUpcomingMovies(page: page)
-                } else {
-                    dataSource.loadNow_PlayingMovies(page: page)
+                page += 1
+                switch type {
+                case .nowPlaying:
+                    viewModel.loadNowPlayingMovies(page: page)
+                case .upcoming:
+                    viewModel.loadUpcomingMovies(page: page)
+                case .popular:
+                    viewModel.loadPopularMovies(page: page)
                 }
-                
-                self.MoviesCollection.reloadData()
+                self.allMoviesCollection.reloadData()
                 self.isLoadingMore = false
-                    
-                }
-                
             }
         }
-    
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch type {
+        case MovieListType.upcoming:
+            DiscoverFlowController.shared.seeMovieDetail(id: viewModel.getUpcomingMovieForIndex(index: indexPath.row).id!)
+        case MovieListType.nowPlaying:
+            DiscoverFlowController.shared.seeMovieDetail(id: viewModel.getNowPlayingMovieForIndex(index: indexPath.row).id!)
+        case MovieListType.popular:
+            DiscoverFlowController.shared.seeMovieDetail(id: viewModel.getPopularMovieForIndex(index: indexPath.row).id!)
+        }
+    }
 }
 
-extension SeeMoviesViewController: DataSourceDelegate {
-    func MostPopularLoaded() {
-        if type == "MostPopular"{
-            MoviesCollection.reloadData()
+extension SeeMoviesViewController: RequestDelegate {
+    func didUpdate(with state: ViewState) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            switch state {
+            case .idle:
+                break
+            case .loading:
+                break
+            case .success:
+                self.allMoviesCollection.reloadData()
+            case .error(let error):
+                break
+            }
         }
     }
-    
-    func UpcomingLoaded() {
-        if type == "Upcoming"{
-            MoviesCollection.reloadData()
-        }
-    }
-    
-    func NowPlayingLoaded() {
-        if type == "NowPlaying"{
-            MoviesCollection.reloadData()
-        }
-    }
-    
-    
-    
 }

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 protocol APIConfiguration: URLRequestConvertible {
     var method: HTTPMethod { get }
     var path: String { get }

@@ -10,138 +10,65 @@ import Alamofire
 import AlamofireImage
 import SDWebImage
 
-
-class DiscoverViewController: UIViewController, UICollectionViewDelegate {
+class DiscoverViewController: UIViewController, UITableViewDelegate {
     var contentOffset: CGFloat = 0
-    var dataSource = DataSource()
 
-    @IBAction func UpcomingTapped(_ sender: Any) {
-        self.performSegue(withIdentifier: "UpcomingAll", sender: self)
-    }
-    
-    @IBAction func MostPopularTapped(_ sender: Any) {
-        self.performSegue(withIdentifier: "MostPopularAll", sender: self)
-    }
-    
-    @IBAction func NowPlayingTapped(_ sender: Any) {
-        self.performSegue(withIdentifier: "NowPlayingAll", sender: self)
-    }
- 
-    @IBOutlet weak var NowPlayingMovies: UICollectionView!
-    @IBOutlet weak var UpcomingMovies: UICollectionView!
-    @IBOutlet weak var PopularMovies: UICollectionView!
-  
+
+   
+    @IBOutlet weak var tableView: UITableView!
+    private let viewModel: DiscoverViewModel = DiscoverViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataSource.delegate = self
-        dataSource.loadPopularMovies(page:1)
-        dataSource.loadUpcomingMovies(page:1)
-        dataSource.loadNow_PlayingMovies(page:1)
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-
-        if segue.identifier == "UpcomingAll",
-            let seeMoviesViewController  = segue.destination as? SeeMoviesViewController {
-            seeMoviesViewController.type = "Upcoming"
-            }
-        if segue.identifier == "MostPopularAll",
-            let seeMoviesViewController  = segue.destination as? SeeMoviesViewController {
-            seeMoviesViewController.type = "MostPopular"
-            }
-        if segue.identifier == "NowPlayingAll",
-            let seeMoviesViewController  = segue.destination as? SeeMoviesViewController {
-            seeMoviesViewController.type = "NowPlaying"
-            }
-    }
-
-}
-
-extension DiscoverViewController: DataSourceDelegate{
-   
-    
-    func NowPlayingLoaded() {
-        NowPlayingMovies.reloadData()
+        DiscoverFlowController.shared.rootNV = self.navigationController
+        self.navigationItem.title = "Discover Movies"
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationItem.hidesBackButton = true
+        registerNibCell()
+        self.viewModel.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
+        self.viewModel.getMovieBlocks()
     }
     
-    func UpcomingLoaded() {
-        UpcomingMovies.reloadData()
+    @IBAction func searchButtonTapped(_ sender: Any) {
+        DiscoverFlowController.shared.goToSearchPage()
     }
     
-    func MostPopularLoaded() {
-        PopularMovies.reloadData()
-        
+    func registerNibCell() {
+        let tableViewCellNib: UINib = UINib(nibName: "DiscoverTableViewCell", bundle: nil)
+        tableView.register(tableViewCellNib, forCellReuseIdentifier: "DiscoverTableViewCell")
     }
 }
-
-extension DiscoverViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+extension DiscoverViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.viewModel.movieBlock.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.PopularMovies{
-            return dataSource.getNumberOfPopularMovies()
-        }else if collectionView == self.UpcomingMovies{
-            return dataSource.getNumberOfUpcomingMovies()
-        }else {
-            return dataSource.getNumberOfNowPlayingMovies()
-            
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DiscoverTableViewCell") as?
+                DiscoverTableViewCell else {
+            fatalError("no cell found")
         }
-        
+        cell.configure(movieBlock: self.viewModel.movieBlock[indexPath.row])
+        return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.PopularMovies{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PopularMoviesCell", for: indexPath) as! MostPopulerCollectionViewCell
-            let movie = dataSource.getPopularMovieForIndex(index: indexPath.row)
-            cell.MovieLabel.text = movie.original_title
-            cell.MovieDuration.text = "Duration"
-            var urlImage = ""
-            do {
-               urlImage = try APIRouter.loadImage(movie_poster_url: "\(movie.poster_path ?? "")").asURLRequest().url?.absoluteString ?? ""
-            }catch{
-                error
+}
+
+extension DiscoverViewController: RequestDelegate {
+    func didUpdate(with state: ViewState) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            switch state {
+            case .idle:
+                break
+            case .loading:
+                break
+            case .success:
+                self.tableView.reloadData()
+            case .error(let error):
+                break
             }
-            cell.MoviePoster.sd_setImage(with: URL(string:urlImage ), placeholderImage: UIImage(named: "placeholder.png"))
-            return cell
-            
-        } else if collectionView == self.UpcomingMovies{
-            let cellUpcoming = collectionView.dequeueReusableCell(withReuseIdentifier: "UpcomingCell", for: indexPath) as! UpcomingCollectionViewCell
-            let movie = dataSource.getUpcomingMovieForIndex(index: indexPath.row)
-            cellUpcoming.MovieLabel.text = movie.original_title
-            cellUpcoming.MovieDuration.text = "Duration"
-            var urlImage = ""
-            do {
-               urlImage = try APIRouter.loadImage(movie_poster_url: "\(movie.poster_path ?? "")").asURLRequest().url?.absoluteString ?? ""
-            }catch{
-                error
-            }
-            cellUpcoming.MoviePoster.sd_setImage(with: URL(string:urlImage ), placeholderImage: UIImage(named: "placeholder.png"))
-            return cellUpcoming
-            
-        }else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NowPlayingCell", for: indexPath) as! NowPlayingCollectionViewCell
-            let movie = dataSource.getNowPlayingMovieForIndex(index: indexPath.row)
-            cell.MovieLabel.text = movie.original_title
-            cell.MovieDuration.text = "Duration"
-            var urlImage = ""
-            do {
-               urlImage = try APIRouter.loadImage(movie_poster_url: "\(movie.poster_path ?? "")").asURLRequest().url?.absoluteString ?? ""
-            }catch{
-                error
-            }
-            cell.MoviePoster.sd_setImage(with: URL(string:urlImage ), placeholderImage: UIImage(named: "placeholder.png"))
-            return cell
-            
         }
     }
-    
 }
-
-
-
-
-

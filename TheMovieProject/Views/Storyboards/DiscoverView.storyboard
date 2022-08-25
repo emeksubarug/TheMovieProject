@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NDq-HZ-qxF">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Discover View Controller-->
+        <scene sceneID="TSJ-Pq-kgp">
+            <objects>
+                <viewController storyboardIdentifier="DiscoverViewController" id="1Jc-pI-kwq" customClass="DiscoverViewController" customModule="TheMovieProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xWl-pK-J0A">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="AYi-Ky-xjE">
+                                <rect key="frame" x="5" y="93" width="404" height="769"/>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="94F-iK-z3g"/>
+                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="94F-iK-z3g" firstAttribute="trailing" secondItem="AYi-Ky-xjE" secondAttribute="trailing" constant="5" id="5Ae-Yq-9cA"/>
+                            <constraint firstItem="AYi-Ky-xjE" firstAttribute="leading" secondItem="94F-iK-z3g" secondAttribute="leading" constant="5" id="bPl-lA-nJf"/>
+                            <constraint firstItem="AYi-Ky-xjE" firstAttribute="centerX" secondItem="94F-iK-z3g" secondAttribute="centerX" id="gPV-se-9Ir"/>
+                            <constraint firstItem="AYi-Ky-xjE" firstAttribute="top" secondItem="94F-iK-z3g" secondAttribute="top" constant="5" id="ltg-eD-JJy"/>
+                            <constraint firstItem="94F-iK-z3g" firstAttribute="bottom" secondItem="AYi-Ky-xjE" secondAttribute="bottom" id="mja-wu-21k"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="h9E-Kn-1Vi">
+                        <barButtonItem key="rightBarButtonItem" image="magnifyingglass" catalog="system" id="8Ci-jM-Ahs">
+                            <connections>
+                                <action selector="searchButtonTapped:" destination="1Jc-pI-kwq" id="DlE-Wq-F2L"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="AYi-Ky-xjE" id="vWu-df-Ygs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mpq-dU-tWT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4314" y="382"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="UgZ-Xl-nf5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NDq-HZ-qxF" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="discoverTabbarIcon" id="u7q-dC-PMC"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Kj8-HN-ERC">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1Jc-pI-kwq" kind="relationship" relationship="rootViewController" id="Ir2-k0-8kj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pDF-zM-Whc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3359" y="382"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" red="0.14901960780000001" green="0.68044018750000002" blue="0.68044018750000002" alpha="1" colorSpace="calibratedRGB"/>
+    <resources>
+        <image name="discoverTabbarIcon" width="40" height="37"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+    </resources>
+</document>

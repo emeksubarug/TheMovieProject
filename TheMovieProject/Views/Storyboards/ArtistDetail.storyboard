@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Artist Detail View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController restorationIdentifier="ArtistDetailViewController" storyboardIdentifier="ArtistDetailViewController" id="Y6W-OH-hqX" customClass="ArtistDetailViewController" customModule="TheMovieProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RHX-ok-4GC">
+                                <rect key="frame" x="0.0" y="52" width="414" height="375"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="375" id="Byt-PZ-EMF"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Bfs-FK-jcC">
+                                <rect key="frame" x="7" y="374" width="400" height="53"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UuV-gE-ASF">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="36"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u9j-3t-8tf">
+                                        <rect key="frame" x="0.0" y="36" width="400" height="17"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="UuV-gE-ASF" firstAttribute="width" secondItem="u9j-3t-8tf" secondAttribute="width" id="xsE-rN-BvU"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wJQ-LB-RK5">
+                                <rect key="frame" x="0.0" y="428" width="414" height="110"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UjU-aw-rWr">
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                        <color key="backgroundColor" red="0.0078431372549019607" green="0.58039215686274503" blue="0.6470588235294118" alpha="0.3966587611607143" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="110" id="eHK-mL-Eam"/>
+                                            <constraint firstAttribute="width" constant="110" id="rw9-W1-9ZS"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="28"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hJO-IT-lOM">
+                                        <rect key="frame" x="110" y="0.0" width="304" height="110"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="110" id="v4R-qF-ZqD"/>
+                                        </constraints>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8Y7-Hx-30D">
+                                            <size key="itemSize" width="128" height="128"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                    </collectionView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="wJQ-LB-RK5" firstAttribute="trailing" secondItem="RHX-ok-4GC" secondAttribute="trailing" id="3uD-UB-Vwe"/>
+                            <constraint firstItem="RHX-ok-4GC" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="8" id="4F9-5h-1BY"/>
+                            <constraint firstItem="RHX-ok-4GC" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="LS1-s7-TlL"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="RHX-ok-4GC" secondAttribute="trailing" id="RwS-7C-sOn"/>
+                            <constraint firstItem="Bfs-FK-jcC" firstAttribute="bottom" secondItem="RHX-ok-4GC" secondAttribute="bottom" id="glK-eD-MF6"/>
+                            <constraint firstItem="Bfs-FK-jcC" firstAttribute="centerX" secondItem="RHX-ok-4GC" secondAttribute="centerX" id="nCT-sL-Qxf"/>
+                            <constraint firstItem="wJQ-LB-RK5" firstAttribute="leading" secondItem="RHX-ok-4GC" secondAttribute="leading" id="rZs-pc-v7M"/>
+                            <constraint firstItem="UuV-gE-ASF" firstAttribute="width" secondItem="RHX-ok-4GC" secondAttribute="width" multiplier="0.966184" id="wta-eH-9gc"/>
+                            <constraint firstItem="wJQ-LB-RK5" firstAttribute="top" secondItem="RHX-ok-4GC" secondAttribute="bottom" constant="1" id="xmh-i9-vUf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="artistDetail" destination="u9j-3t-8tf" id="G5r-8U-kkP"/>
+                        <outlet property="artistImageGalleryCollection" destination="hJO-IT-lOM" id="Efc-Lu-Ky8"/>
+                        <outlet property="artistMainImage" destination="RHX-ok-4GC" id="0Op-eI-xIX"/>
+                        <outlet property="artistName" destination="UuV-gE-ASF" id="f7M-ek-Utz"/>
+                        <outlet property="photoNumber" destination="UjU-aw-rWr" id="GkJ-fN-BgG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="447.82608695652175" y="133.92857142857142"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

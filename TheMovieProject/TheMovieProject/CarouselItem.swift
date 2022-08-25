@@ -11,20 +11,9 @@ class CarouselItem: UIView {
 
     @IBOutlet var vwContent: UIView!
     @IBOutlet weak var image: UIImageView!
-    
-    
-    override init(frame: CGRect){
+
+    override init(frame: CGRect) {
         super.init(frame: frame)
         initWithNib()
-    
     }
- 
-    
-    
-    
-    
-    
-    
-    
-
 }

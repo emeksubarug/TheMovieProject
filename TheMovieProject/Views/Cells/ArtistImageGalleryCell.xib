@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ArtistImageGalleryCell" reuseIdentifier="ArtistImageGalleryCell" id="LTg-j3-ycs" customClass="ArtistImageGalleryCollectionViewCell" customModule="TheMovieProject" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="G7s-ND-Qub">
+                <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z1A-df-oMQ">
+                        <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="130" id="Re3-T7-iz1"/>
+                            <constraint firstAttribute="width" constant="130" id="ggr-iE-9Dy"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Z1A-df-oMQ" firstAttribute="top" secondItem="G7s-ND-Qub" secondAttribute="top" id="0iR-Vb-bqh"/>
+                    <constraint firstAttribute="bottom" secondItem="Z1A-df-oMQ" secondAttribute="bottom" id="4l6-tp-pBz"/>
+                    <constraint firstAttribute="trailing" secondItem="Z1A-df-oMQ" secondAttribute="trailing" id="Odu-GV-n9h"/>
+                    <constraint firstItem="Z1A-df-oMQ" firstAttribute="leading" secondItem="G7s-ND-Qub" secondAttribute="leading" id="kb9-jt-xkZ"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="130" height="130"/>
+            <connections>
+                <outlet property="artistImage" destination="Z1A-df-oMQ" id="wAA-Ux-ff9"/>
+            </connections>
+            <point key="canvasLocation" x="75.362318840579718" y="105.80357142857143"/>
+        </collectionViewCell>
+    </objects>
+</document>
